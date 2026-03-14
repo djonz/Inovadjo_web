@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planificateur de tiroirs</title>
+<title>Drawer Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -117,16 +117,16 @@
   <div class="header-left">
     <span class="logo-name"><span style="-webkit-text-fill-color:var(--ink);color:var(--ink);">Inovad</span><span class="jo">Jo</span></span>
     <div class="header-divider"></div>
-    <h1 id="appTitle">Planificateur de tiroirs</h1>
+    <h1 id="appTitle">Drawer Planner</h1>
   </div>
   <div style="display:flex;gap:0.6rem;align-items:center;">
     <div class="unit-toggle">
-      <button class="unit-btn active" id="btnFR" onclick="setLang('fr')">FR</button>
-      <button class="unit-btn" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="unit-btn" id="btnFR" onclick="setLang('fr')">FR</button>
+      <button class="unit-btn active" id="btnEN" onclick="setLang('en')">EN</button>
     </div>
     <div class="unit-toggle">
-      <button class="unit-btn active" id="btnMM" onclick="setUnit('mm')">mm</button>
-      <button class="unit-btn" id="btnIN" onclick="setUnit('in')">pouces</button>
+      <button class="unit-btn" id="btnMM" onclick="setUnit('mm')">mm</button>
+      <button class="unit-btn active" id="btnIN" onclick="setUnit('in')">inches</button>
     </div>
   </div>
 </header>
@@ -135,28 +135,28 @@
   <aside class="controls">
 
     <div>
-      <div class="section-label" data-i18n="dimSection">Dimensions du meuble</div>
+      <div class="section-label" data-i18n="dimSection">Cabinet Dimensions</div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="input-group">
-          <label data-i18n="totalWidth">Largeur intérieure</label>
+          <label data-i18n="totalWidth">Interior width</label>
           <div class="input-row">
             <span class="fixed-val" id="widthDisplay">486 mm</span>
           </div>
         </div>
         <div class="input-group">
-          <label data-i18n="totalWidthOuter">Largeur totale</label>
+          <label data-i18n="totalWidthOuter">Total width</label>
           <div class="input-row">
             <span class="fixed-val" id="widthOuterDisplay">524 mm</span>
           </div>
         </div>
         <div class="input-group">
-          <label data-i18n="depth">Profondeur</label>
+          <label data-i18n="depth">Depth</label>
           <div class="input-row">
             <span class="fixed-val" id="depthDisplay">425 mm</span>
           </div>
         </div>
         <div class="input-group">
-          <label data-i18n="thickness">Épaisseur panneau</label>
+          <label data-i18n="thickness">Panel thickness</label>
           <div class="input-row">
             <input type="number" class="num-input" id="thickness" value="19.05" min="10" max="30" step="1">
             <span class="unit-label" id="thickUnit">mm</span>
@@ -168,10 +168,10 @@
     <hr class="divider">
 
     <div>
-      <div class="section-label" data-i18n="drawerSection">Configuration des tiroirs</div>
+      <div class="section-label" data-i18n="drawerSection">Drawer Configuration</div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="input-group">
-          <label data-i18n="numDrawers">Nombre de tiroirs</label>
+          <label data-i18n="numDrawers">Number of drawers</label>
           <div class="slider-wrap">
             <div class="input-row">
               <input type="number" class="num-input" id="drawers" value="4" min="1" max="10" step="1">
@@ -187,14 +187,14 @@
     <hr class="divider">
 
     <div>
-      <div class="section-label" data-i18n="summarySection">Récapitulatif</div>
+      <div class="section-label" data-i18n="summarySection">Summary</div>
       <table class="dims-table" id="summaryTable"></table>
     </div>
 
     <hr class="divider">
 
     <div>
-      <div class="section-label" data-i18n="panelsSection">Liste des panneaux</div>
+      <div class="section-label" data-i18n="panelsSection">Panel list</div>
       <div id="panelsList"></div>
     </div>
 
@@ -202,18 +202,18 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
       </svg>
-      <span id="exportBtnLabel" data-i18n="exportBtn">Exporter PDF</span>
+      <span id="exportBtnLabel" data-i18n="exportBtn">Export PDF</span>
     </button>
   </aside>
 
   <main class="canvas-area">
     <div style="display:flex;align-items:center;gap:1.5rem;position:relative;z-index:1;flex-wrap:wrap;justify-content:center;">
-      <div class="plan-title" id="planTitle">Vue de face — meuble à tiroirs</div>
+      <div class="plan-title" id="planTitle">Front view — drawer cabinet</div>
       <div class="view-tabs">
-        <button class="view-tab active" id="tabFront" data-i18n="tabFront">Face</button>
-        <button class="view-tab" id="tabSide" data-i18n="tabSide">Côté</button>
-        <button class="view-tab" id="tabTop" data-i18n="tabTop">Dessus</button>
-        <button class="view-tab" id="tabBack" data-i18n="tabBack">Arrière</button>
+        <button class="view-tab active" id="tabFront" data-i18n="tabFront">Front</button>
+        <button class="view-tab" id="tabSide" data-i18n="tabSide">Side</button>
+        <button class="view-tab" id="tabTop" data-i18n="tabTop">Top</button>
+        <button class="view-tab" id="tabBack" data-i18n="tabBack">Back</button>
       </div>
     </div>
     <div class="svg-container" id="svgContainer">
@@ -284,8 +284,8 @@ const state = {
   thickness: 19.05,
   drawers: 4,
   drawerModels: ['deep','deep','deep','deep'],
-  unit: 'mm',
-  lang: 'fr',
+  unit: 'in',
+  lang: 'en',
   showCotes: true,
   view: 'front',
   openSlot: null,
@@ -884,7 +884,8 @@ async function exportPDF(){
 }
 
 syncInputs();
-renderSlots();
+setLang('en');
+setUnit('in');
 render();
 </script>
 </body>
